@@ -11,7 +11,7 @@
     "require": {},
     "autoload": {
        "psr-4": {
-           "lummy\\VueApi": "laravel-vue-api-crud-generator/src"
+           "lummy\\VueApi\\": "laravel-vue-api-crud-generator/src"
        }
     },
     "extra": {
