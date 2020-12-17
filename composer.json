@@ -1,5 +1,5 @@
 {
-    "name": "lummy/VueApi",
+    "name": "lummy/laravel-vue-api-crud-generator",
     "description": "Creates a basic skeleton for a CRUD app in both Laravel & Vue.js single file components.",
     "authors": [
         {
@@ -10,14 +10,14 @@
     "license": "MIT",
     "require": {},
     "autoload": {
-        "psr-4": {
-            "lummy\\": "src/"
-        }
+       "psr-4": {
+           "lummy\\": "VueApi/laravel-vue-api-crud-generator/src"
+       }
     },
     "extra": {
     "laravel": {
           "providers": [
-              "lummy\\VueApi\\VueApiServiceProvider"
+              "lummy\\LaravelVueApiCrudGenerator\\VueApiServiceProvider"
           ]
     }
   }
