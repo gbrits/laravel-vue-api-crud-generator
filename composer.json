@@ -13,12 +13,5 @@
        "psr-4": {
            "lummy\\": "VueApi/laravel-vue-api-crud-generator/src"
        }
-    },
-    "extra": {
-    "laravel": {
-          "providers": [
-              "lummy\\laravel-vue-api-crud-generator\\VueApiServiceProvider"
-          ]
     }
-  }
 }
