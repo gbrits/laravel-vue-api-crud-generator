@@ -17,7 +17,7 @@
     "extra": {
     "laravel": {
           "providers": [
-              "lummy\\VueApi\\laravel-vue-api-crud-generator\\VueApiServiceProvider"
+              "lummy\\VueApi\\laravel-vue-api-crud-generator\\src\\VueApiServiceProvider"
           ]
     }
   }
