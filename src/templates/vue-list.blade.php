@@ -1,15 +1,15 @@
 <template lang="html">
       <div class="{{ $data['plural_lower'] }}">
-        
+
         <div class="half">
-          
+
           <h1>Create {{$data['singular_lower']}}</h1>
-          
+
           <form @submit.prevent="create{{ $data['singular'] }}">
-            
+
 @foreach($data['fields'] as $field)
             <div class="form-group">
-@if($field['name'] == 'id' || $field['name'] == 'updated_at' || $field['name'] == 'created_at' )   
+@if($field['name'] == 'id' || $field['name'] == 'updated_at' || $field['name'] == 'created_at' )
                   <input type="hidden" v-model="form.{{$field['name']}}"></input>
 @elseif($field['simplified_type'] == 'text')
                   <label>{{ $field['name'] }}</label>
@@ -32,37 +32,37 @@
 @endif
             </div>
 @endforeach
-        
+
             <div class="form-group">
                 <button class="button" type="submit" :disabled="form.busy" name="button">@{{ (form.busy) ? 'Please wait...' : 'Submit'}}</button>
             </div>
           </form>
-          
+
         </div><!-- End first half -->
-        
+
         <div class="half">
-          
+
           <h1>List {{ $data['plural_lower'] }}</h1>
-          
+
           <ul v-if="{{ $data['plural_lower'] }}.length > 0">
             <li v-for="({{ $data['singular_lower'] }},index) in {{ $data['plural_lower'] }}" :key="{{ $data['singular_lower'] }}.id">
-              
+
             <router-link :to="'/{{ $data['singular_lower'] }}/'+{{ $data['singular_lower'] }}.id">
-              
+
               {{ $data['singular_lower']}} @{{ index }}
 
               <button @click.prevent="delete{{$data['singular']}}({{ $data['singular_lower'] }},index)" type="button" :disabled="form.busy" name="button">@{{ (form.busy) ? 'Please wait...' : 'Delete'}}</button>
-              
+
             </router-link>
-              
+
             </li>
           </ul>
-          
+
           <span v-else-if="!{{ $data['plural_lower'] }}">Loading...</span>
           <span v-else>No {{ $data['plural_lower'] }} exist</span>
-          
+
         </div><!-- End 2nd half -->
-        
+
       </div>
 </template>
 
@@ -86,28 +86,28 @@ export default {
   },
   methods: {
     list{{ $data['plural'] }}: function(){
-      
+
       var that = this;
-      this.form.get('{{config('vueApi.vue_url_prefix')}}/{{ $data['plural_lower'] }}').then(function(response){
+      this.form.get('{{config('VueApi.vue_url_prefix')}}/{{ $data['plural_lower'] }}').then(function(response){
         that.{{ $data['plural_lower'] }} = response.data;
       })
-      
+
     },
     create{{ $data['singular'] }}: function(){
-      
+
       var that = this;
-      this.form.post('{{config('vueApi.vue_url_prefix')}}/{{ $data['plural_lower'] }}').then(function(response){
+      this.form.post('{{config('VueApi.vue_url_prefix')}}/{{ $data['plural_lower'] }}').then(function(response){
         that.{{ $data['plural_lower'] }}.push(response.data);
       })
-      
+
     },
     delete{{$data['singular']}}: function({{ $data['singular_lower'] }}, index){
-      
+
       var that = this;
-      this.form.delete('{{config('vueApi.vue_url_prefix')}}/{{ $data['plural_lower'] }}/'+{{ $data['singular_lower'] }}.id).then(function(response){
+      this.form.delete('{{config('VueApi.vue_url_prefix')}}/{{ $data['plural_lower'] }}/'+{{ $data['singular_lower'] }}.id).then(function(response){
         that.{{ $data['plural_lower'] }}.splice(index,1);
       })
-      
+
     }
   }
 }

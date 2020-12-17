@@ -1,14 +1,14 @@
 <template lang="html">
       <div class="{{ $data['singular'] }}Single">
         <h1>Update {{ $data['singular'] }}</h1>
-        
+
         <form @submit.prevent="update{{$data['singular']}}" v-if="loaded">
-          
+
           <router-link to="/{{ $data['plural_lower'] }}">< Back to {{ $data['plural_lower'] }}</router-link>
-          
+
 @foreach($data['fields'] as $field)
             <div class="form-group">
-@if($field['name'] == 'id' || $field['name'] == 'updated_at' || $field['name'] == 'created_at' )   
+@if($field['name'] == 'id' || $field['name'] == 'updated_at' || $field['name'] == 'created_at' )
                   <input type="hidden" v-model="form.{{$field['name']}}"></input>
 @elseif($field['simplified_type'] == 'text')
                   <label>{{ $field['name'] }}</label>
@@ -31,13 +31,13 @@
 @endif
             </div>
 @endforeach
-      
+
           <div class="form-group">
               <button class="button" type="submit" :disabled="form.busy" name="button">@{{ (form.busy) ? 'Please wait...' : 'Update'}}</button>
               <button @click.prevent="delete{{$data['singular']}}">@{{ (form.busy) ? 'Please wait...' : 'Delete'}}</button>
           </div>
         </form>
-        
+
         <span v-else>Loading {{ $data['singular_lower'] }}...</span>
       </div>
 </template>
@@ -53,7 +53,7 @@ export default {
       form: new Form({
 @foreach($data['fields'] as $field)
           "{{$field['name']}}" : "",
-@endforeach        
+@endforeach
       })
     }
   },
@@ -62,9 +62,9 @@ export default {
   },
   methods: {
     get{{$data['singular']}}: function({{$data['singular']}}){
-      
+
       var that = this;
-      this.form.get('{{config('vueApi.vue_url_prefix')}}/{{ $data['plural_lower'] }}/'+this.$route.params.id).then(function(response){
+      this.form.get('{{config('VueApi.vue_url_prefix')}}/{{ $data['plural_lower'] }}/'+this.$route.params.id).then(function(response){
         that.form.fill(response.data);
         that.loaded = true;
       }).catch(function(e){
@@ -72,24 +72,24 @@ export default {
               that.$router.push('/404');
           }
       });
-      
+
     },
     update{{$data['singular']}}: function(){
-      
+
       var that = this;
-      this.form.put('{{config('vueApi.vue_url_prefix')}}/{{ $data['plural_lower'] }}/'+this.$route.params.id).then(function(response){
+      this.form.put('{{config('VueApi.vue_url_prefix')}}/{{ $data['plural_lower'] }}/'+this.$route.params.id).then(function(response){
         that.form.fill(response.data);
       })
-      
+
     },
     delete{{$data['singular']}}: function(){
-      
+
       var that = this;
-      this.form.delete('{{config('vueApi.vue_url_prefix')}}/{{ $data['plural_lower'] }}/'+this.$route.params.id).then(function(response){
+      this.form.delete('{{config('VueApi.vue_url_prefix')}}/{{ $data['plural_lower'] }}/'+this.$route.params.id).then(function(response){
         that.form.fill(response.data);
         that.$router.push('/{{$data['plural_lower']}}');
       })
-      
+
     }
   }
 }

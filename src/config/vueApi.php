@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
     'model_dir' => base_path('app'),
     'controller_dir' => base_path('app/Http/Controllers'),
